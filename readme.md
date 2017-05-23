@@ -1,6 +1,7 @@
 How to Use:
 
 $ cd path/to/retentionreport
+
 $ php -S localhost:8000
 
 Returns a Retention Report across multiple API users given a product Id.
