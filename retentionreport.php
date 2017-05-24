@@ -2,7 +2,6 @@
 // TAB size: 4
 // Syntax to pass arguments from CLI (command line): php /path/to/wwwpublic/path/to/script.php arg1 arg2 arg 3
 // Syntax to pass arguments from http: http://yourdomain.com/path/to/script.php?argument1=arg1&argument2=arg2&argument3=arg3
-// cd to project/script root and then php retentionreport.php 05/01/2017 05/01/2017 52 AzeemAPI trustno1
 
 /* used to pass arguments via commandline or http but not with include.
 if (PHP_SAPI === 'cli') {
@@ -422,4 +421,19 @@ foreach ((array)$message as $messagepayload) {
         //echo "POST to RAILS server for fields without subaff breakdown\n\n";
     }
 }
+
+$statsarray = array("$currentstepvalue" => "Product Id $productId", "Orders" => "$orders", "Gross" => "$currencySymbol$grossTotal", "Net" => "$currencySymbol$netTotal", "Expenses" => "$currencySymbol$expensesTotal", "Last Cycle Retention" => "$retention", "Last Cycle Retention Total" => "$retTotal");
+
+foreach($statsarray as $key => $value) {
+    echo '
+        <div class="col-1-7">
+            <div class="module">
+                <p>'."$key: $value".'<p>
+            </div>
+        </div>
+';
+}
+echo '</div>';
+echo "<br/>\n";
+
 ?>
