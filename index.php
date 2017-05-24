@@ -285,7 +285,7 @@ $argument2 = $_POST['to'];
 echo '
 <table>
     <tr>
-        <td colspan="3"><h4>See Retention Per</h4></td>
+        <td colspan="3"><h4>See Retention Per Source</h4></td>
         <td><h4>Orders:</h4></td>
         <td><h4>Gross:</h4></td>
         <td><h4>Net:</h4></td>

@@ -56,7 +56,7 @@ foreach ((array)$message as $messagepayload) {
     if ($sourceName == 'Total') {
         echo '
     <tr class="collapsible total heading">
-            <td colspan="3">'."<b>TOTAL_For_API:"."$loginId"."_&_Product:$productId</b>";
+            <td colspan="3">'."<b>TOTALS FOR<br/>$OfferName:$loginId"."<br/>Product ID:$productId</b>";
     } else {
     echo '
     <tr class="collapsible offer heading">
@@ -65,11 +65,11 @@ foreach ((array)$message as $messagepayload) {
 
     echo "
             <td>$orders</td>
-            <td>$grossTotal</td>
-            <td>$netTotal</td>
-            <td>$expensesTotal</td>
-            <td>$lifeTimeValue</td>
-            <td>$lifeTimeValuePerCust</td>
+            <td>$currencySymbol$grossTotal</td>
+            <td>$currencySymbol$netTotal</td>
+            <td>$currencySymbol$expensesTotal</td>
+            <td>$currencySymbol$lifeTimeValue</td>
+            <td>$currencySymbol$lifeTimeValuePerCust</td>
             <td> <!--sum(all approvals)--> </td>
             <td> <!--sum(all declines)--> </td>
             <td> <!--avg (all approval rates)--> </td>
@@ -143,17 +143,17 @@ foreach ((array)$message as $messagepayload) {
 
         echo "
         <td> -- </td>
-        <td>$gross</td>
-        <td>$net</td>
-        <td>$expenses</td>
+        <td>$currencySymbol$gross</td>
+        <td>$currencySymbol$net</td>
+        <td>$currencySymbol$expenses</td>
         <td> -- </td>
         <td> -- </td>
         <td> -- </td>
         <td>$declines</td>
         <td>$approvalRate</td>
         <td>$cpa</td>
-        <td>$fullRefunds</td>
-        <td>$partialRefunds</td>
+        <td>$currencySymbol$fullRefunds</td>
+        <td>$currencySymbol$partialRefunds</td>
         <td>$cancels</td>
         <td>$chargebacks</td>
         <td>$chargebackRate</td>
@@ -162,11 +162,11 @@ foreach ((array)$message as $messagepayload) {
         <td>$pending</td>
         <td>$retention</td>
         <td>$retTotal</td>
-        <td>$comission</td>
-        <td>$transactionFee</td>
-        <td>$discountRateFee</td>
-        <td>$shippingCosts</td>
-        <td>$productCosts</td>
+        <td>$currencySymbol$comission</td>
+        <td>$currencySymbol$transactionFee</td>
+        <td>$currencySymbol$discountRateFee</td>
+        <td>$currencySymbol$shippingCosts</td>
+        <td>$currencySymbol$productCosts</td>
         <td>$hardDecline</td>
         <td>$softDecline</td>
         <td>$recycleSave</td>
@@ -196,11 +196,11 @@ foreach ((array)$message as $messagepayload) {
     <tr class="collapsible source heading">
         <td colspan="3">'."$sourceName::<b>$affId</b></td>
         <td>$ordersbypub</td>
-        <td>$grossTotalbypub</td>
-        <td>$netTotalbypub</td>
-        <td>$expensesTotalbypub</td>
-        <td>$lifeTimeValuebypub</td>
-        <td>$lifeTimeValuePerCustbypub</td>
+        <td>$currencySymbol$grossTotalbypub</td>
+        <td>$currencySymbol$netTotalbypub</td>
+        <td>$currencySymbol$expensesTotalbypub</td>
+        <td>$currencySymbol$lifeTimeValuebypub</td>
+        <td>$currencySymbol$lifeTimeValuePerCustbypub</td>
         <td> <!--sum(all approvals by publishing source)--> </td>
         <td> <!--sum(all declines by publishing source)--> </td>
         <td> <!--avg (all approval rates by publishing source)--> </td>
@@ -264,17 +264,17 @@ foreach ((array)$message as $messagepayload) {
     <tr class="cycle source">
         <td colspan="3">'."<i>Cycle: $cycleNumberbypub</i></td>
         <td> -- </td>
-        <td>$grossbypub</td>
-        <td>$netbypub</td>
-        <td>$expensesbypub</td>
+        <td>$currencySymbol$grossbypub</td>
+        <td>$currencySymbol$netbypub</td>
+        <td>$currencySymbol$expensesbypub</td>
         <td> -- </td>
         <td> -- </td>
         <td> -- </td>
         <td>$declinesbypub</td>
         <td>$approvalRatebypub</td>
         <td>$cpabypub</td>
-        <td>$fullRefundsbypub</td>
-        <td>$partialRefundsbypub</td>
+        <td>$currencySymbol$fullRefundsbypub</td>
+        <td>$currencySymbol$partialRefundsbypub</td>
         <td>$cancelsbypub</td>
         <td>$chargebacksbypub</td>
         <td>$chargebackRatebypub</td>
@@ -283,11 +283,11 @@ foreach ((array)$message as $messagepayload) {
         <td>$pendingbypub</td>
         <td>$retentionbypub</td>
         <td>$retTotalbypub</td>
-        <td>$comissionbypub</td>
-        <td>$transactionFeebypub</td>
-        <td>$discountRateFeebypub</td>
-        <td>$shippingCostsbypub</td>
-        <td>$productCostsbypub</td>
+        <td>$currencySymbol$comissionbypub</td>
+        <td>$currencySymbol$transactionFeebypub</td>
+        <td>$currencySymbol$discountRateFeebypub</td>
+        <td>$currencySymbol$shippingCostsbypub</td>
+        <td>$currencySymbol$productCostsbypub</td>
         <td>$hardDeclinebypub</td>
         <td>$softDeclinebypub</td>
         <td>$recycleSavebypub</td>
@@ -313,11 +313,11 @@ foreach ((array)$message as $messagepayload) {
     <tr class="subaff collapsible heading">
         <td colspan="3">'."$sourceName::$affId::<b><em>$subAffId</em></b></td>
         <td>$ordersbysub</td>
-        <td>$grossTotalbysub</td>
-        <td>$netTotalbysub</td>
-        <td>$expensesTotalbysub</td>
-        <td>$lifeTimeValuebysub</td>
-        <td>$lifeTimeValuePerCustbysub</td>
+        <td>$currencySymbol$grossTotalbysub</td>
+        <td>$currencySymbol$netTotalbysub</td>
+        <td>$currencySymbol$expensesTotalbysub</td>
+        <td>$currencySymbol$lifeTimeValuebysub</td>
+        <td>$currencySymbol$lifeTimeValuePerCustbysub</td>
         <td> <!--sum(all approvals by subaff)--> </td>
         <td> <!--sum(all declines by subaff)--> </td>
         <td> <!--avg (all approval rates by subaff)--> </td>
@@ -382,17 +382,17 @@ foreach ((array)$message as $messagepayload) {
     <tr class="cycle subaff">
         <td colspan="3">'."<i>Cycle: $cycleNumberbysub<i></td>
         <td> -- </td>
-        <td>$grossbysub</td>
-        <td>$netbysub</td>
-        <td>$expensesbysub</td>
+        <td>$currencySymbol$grossbysub</td>
+        <td>$currencySymbol$netbysub</td>
+        <td>$currencySymbol$expensesbysub</td>
         <td> -- </td>
         <td> -- </td>
         <td> -- </td>
         <td>$declinesbysub</td>
         <td>$approvalRatebysub</td>
         <td>$cpabysub</td>
-        <td>$fullRefundsbysub</td>
-        <td>$partialRefundsbysub</td>
+        <td>$currencySymbol$fullRefundsbysub</td>
+        <td>$currencySymbol$partialRefundsbysub</td>
         <td>$cancelsbysub</td>
         <td>$chargebacksbysub</td>
         <td>$chargebackRatebysub</td>
@@ -401,11 +401,11 @@ foreach ((array)$message as $messagepayload) {
         <td>$pendingbysub</td>
         <td>$retentionbysub</td>
         <td>$retTotalbysub</td>
-        <td>$comissionbysub</td>
-        <td>$transactionFeebysub</td>
-        <td>$discountRateFeebysub</td>
-        <td>$shippingCostsbysub</td>
-        <td>$productCostsbysub</td>
+        <td>$currencySymbol$comissionbysub</td>
+        <td>$currencySymbol$transactionFeebysub</td>
+        <td>$currencySymbol$discountRateFeebysub</td>
+        <td>$currencySymbol$shippingCostsbysub</td>
+        <td>$currencySymbol$productCostsbysub</td>
         <td>$hardDeclinebysub</td>
         <td>$softDeclinebysub</td>
         <td>$recycleSavebysub</td>
