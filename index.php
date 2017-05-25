@@ -1,20 +1,16 @@
-<!-- Sublime Text Settings: Tab Space 4 - PHP -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Retention Report AZ</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link href="//code.jquery.com/tableexport.css" rel="stylesheet">
-  <script src="//code.jquery.com/jquery.min.js"></script>
-  <script src="//code.jquery.com/FileSaver.min.js"></script>
-  <script src="//code.jquery.com/tableexport.js"></script>
-  <script src="//code.jquery.com/Blob.min.js"></script>
-  <script src="//code.jquery.com/xls.core.min.js"></script>
-
-
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/af-2.2.0/b-1.3.1/b-colvis-1.3.1/b-flash-1.3.1/b-html5-1.3.1/b-print-1.3.1/cr-1.3.3/fc-3.2.2/fh-3.1.2/kt-2.2.1/r-2.1.1/rg-1.0.0/rr-1.2.0/sc-1.4.2/se-1.2.2/datatables.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/af-2.2.0/b-1.3.1/b-colvis-1.3.1/b-flash-1.3.1/b-html5-1.3.1/b-print-1.3.1/cr-1.3.3/fc-3.2.2/fh-3.1.2/kt-2.2.1/r-2.1.1/rg-1.0.0/rr-1.2.0/sc-1.4.2/se-1.2.2/datatables.js"></script>
+
+
   <script>
   $( function() {
     var dateFormat = "mm/dd/yy",
@@ -55,7 +51,7 @@
       var addButton = $('.add_button'); //Add button selector
       var wrapper = $('.field_wrapper'); //Input field wrapper
       var fieldHTML =  {row :function(f){
-              return '<div><label>Offer Name</label><input type="text" name="field_name[1][]" value=""/><label>API User Name</label><input type="text" name="field_name[1][]" value=""/><label>API Password</label><input type="text" name="field_name[1][]" value=""/><label>Product ID for Step 1</label><input type="text" name="field_name[1][]" value=""/><label>Product ID for Step 2</label><input type="text" name="field_name[1][]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field">Remove Field</a></div>'; //New input field html 
+              return '<div><label>Offer Name</label><input type="text" name="field_name['+f+'][]" value=""/><label>API User Name</label><input type="text" name="field_name['+f+'][]" value=""/><label>API Password</label><input type="text" name="field_name['+f+'][]" value=""/><label>Product ID for Step 1</label><input type="text" name="field_name['+f+'][]" value=""/><label>Product ID for Step 2</label><input type="text" name="field_name['+f+'][]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field">Remove Field</a></div>'; //New input field html 
           }};
 
       var x = 1; //Initial field counter is 1
@@ -70,74 +66,6 @@
           $(this).parent('div').remove(); //Remove field html
           x--; //Decrement field counter
       });
-
-      //makes table rows collapse/expand using the html class collapsible up to the next collapisble element
-      $('.collapsible').click(function() {
-        if ($(this).hasClass("collapsed")) {
-          $(this).nextUntil('tr.collapsible')
-            .find('td')
-            .parent()
-            .find('td > div')
-            .slideDown("fast", function() {
-              var $set = $(this);
-              $set.replaceWith($set.contents());
-            });
-          $(this).removeClass("collapsed");
-        } else {
-          $(this).nextUntil('tr.collapsible')
-            .find('td')
-            .wrapInner('<div style="display: block;" />')
-            .parent()
-            .find('td > div')
-            .slideUp("fast");
-          $(this).addClass("collapsed");
-        }
-      });
-
-      $('.rnested').click(function() {
-        if ($(this).hasClass("collapsed")) {
-          $(this).nextUntil('tr.rnested')
-            .find('td')
-            .parent()
-            .find('td > div')
-            .slideDown("fast", function() {
-              var $set = $(this);
-              $set.replaceWith($set.contents());
-            });
-          $(this).removeClass("collapsed");
-        } else {
-          $(this).nextUntil('tr.rnested')
-            .find('td')
-            .wrapInner('<div style="display: block;" />')
-            .parent()
-            .find('td > div')
-            .slideUp("fast");
-          $(this).addClass("collapsed");
-        }
-      });
-
-      $('.subnested').click(function() {
-        if ($(this).hasClass("collapsed")) {
-          $(this).nextUntil('tr.subnested')
-            .find('td')
-            .parent()
-            .find('td > div')
-            .slideDown("fast", function() {
-              var $set = $(this);
-              $set.replaceWith($set.contents());
-            });
-          $(this).removeClass("collapsed");
-        } else {
-          $(this).nextUntil('tr.subnested')
-            .find('td')
-            .wrapInner('<div style="display: block;" />')
-            .parent()
-            .find('td > div')
-            .slideUp("fast");
-          $(this).addClass("collapsed");
-        }
-      });
-
   });
   </script>
 
@@ -146,11 +74,6 @@
     font-family: helvetica;
     background-color: white;
     font-size: 12px;
-  }
-
-  .collapsible {
-    font-family: sans-serif;
-    cursor: pointer;
   }
 
   .heading:hover {
@@ -173,8 +96,8 @@
   }
 
   td {
-
-    font-size: 12px;
+    text-align: center;
+    font-size: 11px;
   }
 
   .stepvalue {
@@ -246,6 +169,10 @@
     font-size: 16px;
   }
 
+  h5 {
+    text-align: center;
+  }
+
   </style>
 </head>
 <body>
@@ -263,7 +190,7 @@
 
 <h3>How to Use:</h3>
 <p>Returns a Retention Report across multiple API users given a product Id.<br/>
-Enter a username, password, and product id for each offer you want to track and you will see a collapsible breakdown per publishing  affiliate, per sub-affiliate id. Each Product will have it's own Total Row. <!--Furthermore it's built with future extensibility in mind, allowing for HTML table functions by viewing the source, allowing calculations per set of offers etc on a dynamically created table, - or more simply by summing all the values in a column etc. CSV and Excel export to come.--></p> 
+Enter a username, password, and product id for each offer you want to track and you will see a breakdown per publishing  affiliate, per sub-affiliate id. Each Product will have it's own Total Row. <!--Furthermore it's built with future extensibility in mind, allowing for HTML table functions by viewing the source, allowing calculations per set of offers etc on a dynamically created table, - or more simply by summing all the values in a column etc. CSV and Excel export to come.--></p> 
 
 <div class="field_wrapper">
     <div>
@@ -274,80 +201,116 @@ Enter a username, password, and product id for each offer you want to track and 
 <input type="submit" name="submit" value="SUBMIT"/>
 </form>
 </section>
-
+<section>
 
 
 <?php
 
-$argument1 = $_POST['from'];
-$argument2 = $_POST['to'];
+$from = $_POST['from'];
+$to = $_POST['to'];
 
 echo '
-<table>
+<table id="myTable">
+<thead>
     <tr>
-        <td colspan="3"><h4>See Retention Per Source</h4></td>
-        <td><h4>Orders:</h4></td>
-        <td><h4>Gross:</h4></td>
-        <td><h4>Net:</h4></td>
-        <td><h4>Expenses:</h4></td>
-        <td><h4>LTV:</h4></td>
-        <td><h4>LTV/Customer:</h4></td>
-        <td><h4>Approved:</h4></td>
-        <td><h4>Declines:</h4></td>
-        <td><h4>Approval Rate:</h4></td>
-        <td><h4>CPA:</h4></td>
-        <td><h4>Full Refunds:</h4></td>
-        <td><h4>Partial Refunds:</h4></td>
-        <td><h4>Cancels:</h4></td>
-        <td><h4>Chargebacks:</h4></td>
-        <td><h4>Chargeback Rate:</h4></td>
-        <td><h4>Chargeback Rev:</h4></td>
-        <td><h4>Recycles:</h4></td>
-        <td><h4>Pending:</h4></td>
-        <td><h4>Retention:</h4></td>
-        <td><h4>Retention Total:</h4></td>
-        <td><h6>Comissions:</h6></td>
-        <td><h6>Transaction Fees:</h6></td>
-        <td><h6>Discount Rate Fees:</h6></td>
-        <td><h6>Shipping Costs:</h6></td>
-        <td><h6>Product Costs:</h6></td>
-        <td><h6>Hard Decline:</h6></td>
-        <td><h6>Soft Decline:</h6></td>
-        <td><h6>Recycle Saves:</h6></td>
+        <td colspan="3"><h5>See Retention Per Source</h5></td>
+        <td><h5>Affiliate</h5></td>
+        <td><h5>Sub-Affiliate</h5></td>
+        <td><h5>Orders:</h5></td>
+        <td><h5>Gross:</h5></td>
+        <td><h5>Net:</h5></td>
+        <td><h5>Expenses:</h5></td>
+        <td><h5>LTV:</h5></td>
+        <td><h5>LTV/Customer:</h5></td>
+        <td><h5>Approved:</h5></td>
+        <td><h5>Declines:</h5></td>
+        <td><h5>Approval Rate:</h5></td>
+        <td><h5>CPA:</h5></td>
+        <td><h5>Full Refunds:</h5></td>
+        <td><h5>Partial Refunds:</h5></td>
+        <td><h5>Cancels:</h5></td>
+        <td><h5>Chargebacks:</h5></td>
+        <td><h5>Chargeback Rate:</h5></td>
+        <td><h5>Chargeback Rev:</h5></td>
+        <td><h5>Recycles:</h5></td>
+        <td><h5>Pending:</h5></td>
+        <td><h5>Retention:</h5></td>
+        <td><h5>Retention Total:</h5></td>
+        <td><h5>Comissions:</h5></td>
+        <td><h5>Transaction Fees:</h5></td>
+        <td><h5>Discount Rate Fees:</h5></td>
+        <td><h5>Shipping Costs:</h5></td>
+        <td><h5>Product Costs:</h5></td>
+        <td><h5>Hard Decline:</h5></td>
+        <td><h5>Soft Decline:</h5></td>
+        <td><h5>Recycle Saves:</h5></td>
     </tr>
-
-';
+</thead>
+<tfoot>
+    <tr>
+        <td colspan="3"><h5>See Retention Per Source</h5></td>
+        <td><h5>Affiliate</h5></td>
+        <td><h5>Sub-Affiliate</h5></td>
+        <td><h5>Orders:</h5></td>
+        <td><h5>Gross:</h5></td>
+        <td><h5>Net:</h5></td>
+        <td><h5>Expenses:</h5></td>
+        <td><h5>LTV:</h5></td>
+        <td><h5>LTV/Customer:</h5></td>
+        <td><h5>Approved:</h5></td>
+        <td><h5>Declines:</h5></td>
+        <td><h5>Approval Rate:</h5></td>
+        <td><h5>CPA:</h5></td>
+        <td><h5>Full Refunds:</h5></td>
+        <td><h5>Partial Refunds:</h5></td>
+        <td><h5>Cancels:</h5></td>
+        <td><h5>Chargebacks:</h5></td>
+        <td><h5>Chargeback Rate:</h5></td>
+        <td><h5>Chargeback Rev:</h5></td>
+        <td><h5>Recycles:</h5></td>
+        <td><h5>Pending:</h5></td>
+        <td><h5>Retention:</h5></td>
+        <td><h5>Retention Total:</h5></td>
+        <td><h5>Comissions:</h5></td>
+        <td><h5>Transaction Fees:</h5></td>
+        <td><h5>Discount Rate Fees:</h5></td>
+        <td><h5>Shipping Costs:</h5></td>
+        <td><h5>Product Costs:</h5></td>
+        <td><h5>Hard Decline:</h5></td>
+        <td><h5>Soft Decline:</h5></td>
+        <td><h5>Recycle Saves:</h5></td>
+    </tr>
+</tfoot>
+<tbody>'."\n";
 if ($_POST) {
     $field_values_array = array_filter($_POST['field_name']);
     if ($field_values_array) {
-        foreach ($field_values_array as $value) {
+        //var_dump($field_values_array);
+        foreach ($field_values_array as $value){
             $OfferName  = $value[0]; // saves 1st input as offer name
             $offerlogin = $value[1]; // saves 2nd input as loginid
             $offerpw    = $value[2]; // saves 3rd input as password
             $offerstep1 = $value[3]; // saves 4th input as product id for step 1
             $offerstep2 = $value[4]; // saves 5th input as product id for step 2
+            //echo $value[0], $value[1], $value[2], $value[3], $value[4];
             $osteps     = array(
-                $offerstep1,
-                $offerstep2
+                $value[3],
+                $value[4]
             );
-
-            echo '
-<div class="grid grid-pad">
-<h2>'."$OfferName".'</h2>
-';
+            //echo '<div class="grid grid-pad"><span style="font-size: 20px;">'."<b><em>$OfferName</em></b>".'</span>';
             foreach ($osteps as $val) {
+                $argument1 = $from;
+                $argument2 = $to;
                 $argument3 = $val;
                 $argument4 = $offerlogin;
                 $argument5 = $offerpw;
-
-                if ($val==$offerstep1){
+                if ($val == $offerstep1){
                     $currentstepvalue = "Step 1";
-                    echo '<tr class="stepvalue heading"><td colspan="31"><h1>'."$OfferName step 1 product Id: $offerstep1</h1></td></tr>\n";
+                    echo '<tr class="stepvalue heading"><td colspan="33"><h1>'."$OfferName step 1 product Id: $val</h1></td></tr>";
                 } else {
                     $currentstepvalue = "Step 2";
-                    echo '<tr class="stepvalue heading"><td colspan="31"><h1>'."$OfferName step 2 product Id: $offerstep2</h1></td></tr>\n";
+                    echo '<tr class="stepvalue heading"><td colspan="33"><h1>'."$OfferName step 2 product Id: $val</h1></td></tr>";
                 }
-
                 require('retentionreport.php');
             }
             
@@ -361,6 +324,24 @@ if ($_POST) {
     }
 }
 echo '</table>' . "\n";
+
+/*
+if ($_POST) {
+    $field_values_array = array_filter($_POST['field_name']);
+    if ($field_values_array) {
+        //var_dump($field_values_array);
+        foreach ($field_values_array as $value){
+        echo '<div class="grid grid-pad"><span style="font-size: 20px;">'."<b><em>$OfferName</em></b>".'</span>';
+        }
+    }
+}
+*/
 ?>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#myTable').DataTable();
+});
+</script>
+</section>
 </body>
 </html>

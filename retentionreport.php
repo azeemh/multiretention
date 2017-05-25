@@ -55,45 +55,46 @@ foreach ((array)$message as $messagepayload) {
 
     if ($sourceName == 'Total') {
         echo '
-    <tr class="collapsible total heading">
+    <tr class="total heading">
             <td colspan="3">'."<b>TOTALS FOR<br/>$OfferName:$loginId"."<br/>Product ID:$productId</b>";
     } else {
     echo '
-    <tr class="collapsible offer heading">
-            <td colspan="3">'."<b>$sourceName</b></td>";
+    <tr class="offer heading">
+        <td colspan="3">'."<b>$sourceName</b></td>";
     }
 
     echo "
-            <td>$orders</td>
-            <td>$currencySymbol$grossTotal</td>
-            <td>$currencySymbol$netTotal</td>
-            <td>$currencySymbol$expensesTotal</td>
-            <td>$currencySymbol$lifeTimeValue</td>
-            <td>$currencySymbol$lifeTimeValuePerCust</td>
-            <td> <!--sum(all approvals)--> </td>
-            <td> <!--sum(all declines)--> </td>
-            <td> <!--avg (all approval rates)--> </td>
-            <td> <!--avg (cpa?)--> </td>
-            <td> <!--sum(all full refunds)--> </td>
-            <td> <!--sum(all partial refunds)--> </td>
-            <td> <!--sum(cancels)--> </td>
-            <td> <!--sum(chargebacks)--> </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> <!--sum(pending)--> </td>
-            <td> <!--avg(retention%)--> </td>
-            <td> <!--sum(retention totals)--> </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
-            <td> -- </td>
-        </tr>
-    ";
+        <td> -- </td>
+        <td> -- </td>
+        <td>$orders</td>
+        <td>$currencySymbol$grossTotal</td>
+        <td>$currencySymbol$netTotal</td>
+        <td>$currencySymbol$expensesTotal</td>
+        <td>$currencySymbol$lifeTimeValue</td>
+        <td>$currencySymbol$lifeTimeValuePerCust</td>
+        <td> <!--sum(all approvals)--> </td>
+        <td> <!--sum(all declines)--> </td>
+        <td> <!--avg (all approval rates)--> </td>
+        <td> <!--avg (cpa?)--> </td>
+        <td> <!--sum(all full refunds)--> </td>
+        <td> <!--sum(all partial refunds)--> </td>
+        <td> <!--sum(cancels)--> </td>
+        <td> <!--sum(chargebacks)--> </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> <!--sum(pending)--> </td>
+        <td> <!--avg(retention%)--> </td>
+        <td> <!--sum(retention totals)--> </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
+    </tr>";
 
     //echo "<br/>\n<h3>$sourceName || Orders: $orders | Gross: $currencySymbol$grossTotal | Net: $currencySymbol$netTotal | Expenses: $currencySymbol$expensesTotal | LTV: $currencySymbol$lifeTimeValue | LTV/Customer: $currencySymbol$lifeTimeValuePerCust | Number of Billing Cycles: " . count($cyclesarray) . "</h3>";
     for ($z = 0; $z <= (count($cyclesarray) - 1); $z++) {
@@ -143,6 +144,8 @@ foreach ((array)$message as $messagepayload) {
 
         echo "
         <td> -- </td>
+        <td> -- </td>
+        <td> -- </td>
         <td>$currencySymbol$gross</td>
         <td>$currencySymbol$net</td>
         <td>$currencySymbol$expenses</td>
@@ -170,11 +173,10 @@ foreach ((array)$message as $messagepayload) {
         <td>$hardDecline</td>
         <td>$softDecline</td>
         <td>$recycleSave</td>
-    </tr>
-        \n";
+    </tr>";
         //echo "<br/>Cycle $cycleNumber\nApproved: $approved | Declines: $declines | Approval Rate: $approvalRate | CPA: $cpa | Full Refunds: $currencySymbol$fullRefunds | Partial Refunds: $currencySymbol$partialRefunds | Cancels: $cancels | Chargebacks: $chargebacks | Chargeback Rate: $chargebackRate | Chargeback Rev: $chargebackRev | Recycles: $recycles | Pending: $pending | Retention: $retention | Retention Total: $retTotal | Gross: $gross | Expenses: $expenses | Comission: $comission | Net: $net\nTransaction Fee: $transactionFee | Discount Rate Fee: $discountRateFee | Shipping Costs: $shippingCosts | Product Costs: $productCosts | Hard Decline: $hardDecline | Soft Decline: $softDecline | Recycle Save: $recycleSave | Initial Recyle -- Successes: $InitialRecycle_successes | Soft Declines: $InitialRecycle_softDeclines | Hard Declines: $InitialRecycle_hardDeclines | Success Rate: $InitialRecycle_successRate | Plus Retention Rate: $InitialRecycle_plusRetentionRate\n";
     }
-    echo "\n";
+    //echo "\n";
 
     //var_dump($messagepayload);
     
@@ -193,14 +195,16 @@ foreach ((array)$message as $messagepayload) {
             $cyclesarraybypub          = $iteratorvariable->cycles; // array of cycles by publisher/affiliate
             
             echo '
-    <tr class="collapsible source heading">
+    <tr class="source heading">
         <td colspan="3">'."$sourceName::<b>$affId</b></td>
+        <td>$affId</td>
+        <td> -- </td>
         <td>$ordersbypub</td>
-        <td>$currencySymbol$grossTotalbypub</td>
-        <td>$currencySymbol$netTotalbypub</td>
-        <td>$currencySymbol$expensesTotalbypub</td>
-        <td>$currencySymbol$lifeTimeValuebypub</td>
-        <td>$currencySymbol$lifeTimeValuePerCustbypub</td>
+        <td>$currencySymbolbypub$grossTotalbypub</td>
+        <td>$currencySymbolbypub$netTotalbypub</td>
+        <td>$currencySymbolbypub$expensesTotalbypub</td>
+        <td>$currencySymbolbypub$lifeTimeValuebypub</td>
+        <td>$currencySymbolbypub$lifeTimeValuePerCustbypub</td>
         <td> <!--sum(all approvals by publishing source)--> </td>
         <td> <!--sum(all declines by publishing source)--> </td>
         <td> <!--avg (all approval rates by publishing source)--> </td>
@@ -223,8 +227,7 @@ foreach ((array)$message as $messagepayload) {
         <td> -- </td>
         <td> -- </td>
         <td> -- </td>
-    </tr>
-            ";
+    </tr>";
             //echo "<br/><h5>AFFILIATE: $affId</h5>OVERALL--Orders: $ordersbypub | Gross: $currencySymbolbypub$grossTotalbypub | Net: $currencySymbolbypub$netTotalbypub | Expenses: $currencySymbolbypub$expensesTotalbypub | LTV: $currencySymbolbypub$lifeTimeValuebypub | LTV/Customer: $lifeTimeValuePerCustbypub | Number of Billing Cycles: " . count($cyclesarraybypub) . "\n";
             
             for ($w = 0; $w <= (count($cyclesarraybypub) - 1); $w++) {
@@ -263,18 +266,20 @@ foreach ((array)$message as $messagepayload) {
                 echo '
     <tr class="cycle source">
         <td colspan="3">'."<i>Cycle: $cycleNumberbypub</i></td>
+        <td>$affId</td>
         <td> -- </td>
-        <td>$currencySymbol$grossbypub</td>
-        <td>$currencySymbol$netbypub</td>
-        <td>$currencySymbol$expensesbypub</td>
+        <td> -- </td>
+        <td>$currencySymbolbypub$grossbypub</td>
+        <td>$currencySymbolbypub$netbypub</td>
+        <td>$currencySymbolbypub$expensesbypub</td>
         <td> -- </td>
         <td> -- </td>
         <td> -- </td>
         <td>$declinesbypub</td>
         <td>$approvalRatebypub</td>
         <td>$cpabypub</td>
-        <td>$currencySymbol$fullRefundsbypub</td>
-        <td>$currencySymbol$partialRefundsbypub</td>
+        <td>$currencySymbolbypub$fullRefundsbypub</td>
+        <td>$currencySymbolbypub$partialRefundsbypub</td>
         <td>$cancelsbypub</td>
         <td>$chargebacksbypub</td>
         <td>$chargebackRatebypub</td>
@@ -283,16 +288,15 @@ foreach ((array)$message as $messagepayload) {
         <td>$pendingbypub</td>
         <td>$retentionbypub</td>
         <td>$retTotalbypub</td>
-        <td>$currencySymbol$comissionbypub</td>
-        <td>$currencySymbol$transactionFeebypub</td>
-        <td>$currencySymbol$discountRateFeebypub</td>
-        <td>$currencySymbol$shippingCostsbypub</td>
-        <td>$currencySymbol$productCostsbypub</td>
+        <td>$currencySymbolbypub$comissionbypub</td>
+        <td>$currencySymbolbypub$transactionFeebypub</td>
+        <td>$currencySymbolbypub$discountRateFeebypub</td>
+        <td>$currencySymbolbypub$shippingCostsbypub</td>
+        <td>$currencySymbolbypub$productCostsbypub</td>
         <td>$hardDeclinebypub</td>
         <td>$softDeclinebypub</td>
         <td>$recycleSavebypub</td>
-    </tr>
-                ";
+    </tr>";
 
                 //echo "Cycle $cycleNumberbypub \nApproved: $approvedbypub | Declines: $declinesbypub | Approval Rate: $approvalRatebypub | CPA: $cpabypub | Full Refunds: $currencySymbol$fullRefundsbypub | Partial Refunds: $currencySymbol$partialRefundsbypub | Cancels: $cancelsbypub | Chargebacks: $chargebacksbypub | Chargeback Rate: $chargebackRatebypub | Chargeback Rev: $chargebackRevbypub | Recycles: $recyclesbypub | Pending: $pendingbypub | Retention: $retentionbypub | Retention Total: $retTotalbypub | Gross: $grossbypub | Expenses: $expensesbypub | Comission: $comissionbypub | Net: $netbypub\nTransaction Fee: $transactionFeebypub | Discount Rate Fee: $discountRateFeebypub | Shipping Costs: $shippingCostsbypub | Product Costs: $productCostsbypub | Hard Decline: $hardDeclinebypub | Soft Decline: $softDeclinebypub | Recycle Save: $recycleSavebypub | Initial Recyle -- Successes: $InitialRecycle_successesbypub | Soft Declines: $InitialRecycle_softDeclinesbypub | Hard Declines: $InitialRecycle_hardDeclinesbypub | Success Rate: $InitialRecycle_successRatebypub | Plus Retention Rate: $InitialRecycle_plusRetentionRatebypub\n";
             }
@@ -310,14 +314,16 @@ foreach ((array)$message as $messagepayload) {
                 $cyclesarraybysub    = $iv2->cycles;
                 
                 echo '
-    <tr class="subaff collapsible heading">
+    <tr class="subaff heading">
         <td colspan="3">'."$sourceName::$affId::<b><em>$subAffId</em></b></td>
+        <td>$affId</td>
+        <td>$subAffId</td>
         <td>$ordersbysub</td>
-        <td>$currencySymbol$grossTotalbysub</td>
-        <td>$currencySymbol$netTotalbysub</td>
-        <td>$currencySymbol$expensesTotalbysub</td>
-        <td>$currencySymbol$lifeTimeValuebysub</td>
-        <td>$currencySymbol$lifeTimeValuePerCustbysub</td>
+        <td>$currencybysub$grossbysub</td>
+        <td>$currencybysub$netbysub</td>
+        <td>$currencybysub$expensesbysub</td>
+        <td>$currencybysub$ltvbysub</td>
+        <td>$currencybysub$ltvpercustomerbysub</td>
         <td> <!--sum(all approvals by subaff)--> </td>
         <td> <!--sum(all declines by subaff)--> </td>
         <td> <!--avg (all approval rates by subaff)--> </td>
@@ -340,8 +346,7 @@ foreach ((array)$message as $messagepayload) {
         <td> -- </td>
         <td> -- </td>
         <td> -- </td>
-    </tr>
-                ";
+    </tr>";
 
                 //echo "\n%%%%%%%%%%%%%| Sub Aff ID: $subAffId |\nOrders: $ordersbysub | Gross: $currencybysub$grossbysub | Net: $currencybysub$netbysub | Expenses: $currencybysub$expensesbysub | LTV: $currencybysub$ltvbysub | LTV/Customer: $currencybysub$ltvpercustomerbysub | Number of Billing Cycles: " . count($cyclesarraybysub) . "\n";
                 
@@ -381,6 +386,8 @@ foreach ((array)$message as $messagepayload) {
                     echo '
     <tr class="cycle subaff">
         <td colspan="3">'."<i>Cycle: $cycleNumberbysub<i></td>
+        <td>$affId</td>
+        <td>$subAffId</td>
         <td> -- </td>
         <td>$currencySymbol$grossbysub</td>
         <td>$currencySymbol$netbysub</td>
@@ -415,7 +422,7 @@ foreach ((array)$message as $messagepayload) {
                 }
             }
         }
-        echo "\n";
+        echo "\n</tbody>";
         
     } else {
         //echo "POST to RAILS server for fields without subaff breakdown\n\n";
@@ -424,16 +431,16 @@ foreach ((array)$message as $messagepayload) {
 
 $statsarray = array("$currentstepvalue" => "Product Id $productId", "Orders" => "$orders", "Gross" => "$currencySymbol$grossTotal", "Net" => "$currencySymbol$netTotal", "Expenses" => "$currencySymbol$expensesTotal", "Last Cycle Retention" => "$retention", "Last Cycle Retention Total" => "$retTotal");
 
+/*
 foreach($statsarray as $key => $value) {
     echo '
         <div class="col-1-7">
             <div class="module">
                 <p>'."$key: $value".'<p>
             </div>
-        </div>
-';
-}
+        </div>';}
 echo '</div>';
 echo "<br/>\n";
+*/
 
 ?>
