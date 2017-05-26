@@ -66,7 +66,7 @@
     background-color: white;
     font-size: 12px;
   }
-  .heading:hover {
+  .ihover:hover {
     background-color: #EFF0F0;
   }
   .offer {
@@ -85,6 +85,41 @@
     text-align: center;
     font-size: 11px;
   }
+
+  .fixed_headers {
+    width: @table_width;
+    table-layout: fixed;
+    border-collapse: collapse;
+    
+    th { text-decoration: underline; }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    
+    td:nth-child(1), th:nth-child(1) { min-width: @column_one_width; }
+    td:nth-child(2), th:nth-child(2) { min-width: @column_two_width; }
+    td:nth-child(3), th:nth-child(3) { width: @column_three_width; }
+
+    thead {
+      background-color: @header_background_color;
+      color: @header_text_color;
+      tr {
+        display: block;
+        position: relative;
+      }
+    }
+    tbody {
+      display: block;
+      overflow: auto;
+      width: 100%;
+      height: @table_body_height;
+      tr:nth-child(even) {
+        background-color: @alternate_row_background_color;
+      }
+    }
+  }
+
   .stepvalue {
     font-size: 14px;
   }
@@ -127,7 +162,7 @@
   }
   .module {
     padding: 10px;
-    background: #eee;
+    background: whitesmoke;
   }
   body {
     padding: none;
@@ -174,7 +209,7 @@ $from = $_POST['from'];
 $to = $_POST['to'];
 echo '
 <table class="sortable">
-<thead>
+<thead class="fixed_headers">
     <tr>
         <th><h5>Offer</h5></th>
         <th><h5>Step:Value</h5></th>
@@ -225,6 +260,7 @@ if ($_POST) {
                 $value[3],
                 $value[4]
             );
+            echo '<div class="grid"><h3>'."$OfferName at a glance:<h3>";
             foreach ($osteps as $val) {
                 $argument1 = $from;
                 $argument2 = $to;

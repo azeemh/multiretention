@@ -29,13 +29,13 @@ foreach ((array)$message as $messagepayload) {
     $cyclesarray          = $messagepayload->cycles; // this is an array of cycles
     if ($sourceName == 'Total') {
         echo '
-    <tr class="total heading">
+    <tr class="total heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."<b>TOTALS FOR<br/>$OfferName:$loginId"."<br/>Product ID:$productId</b>";
     } else {
     echo '
-    <tr class="offer heading">
+    <tr class="offer heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."<b>$sourceName</b></td>";
@@ -109,13 +109,13 @@ foreach ((array)$message as $messagepayload) {
         // For each recycle save successes, softDeclines, hardDeclines, successRate, plusretentionRate, same as recycleInital.
         if ($sourceName == 'Total') {
         echo '
-    <tr class="cycle total">
+    <tr class="cycle total ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."$sourceName <i>Cycle: $cycleNumber</i></td>";
     } else {
         echo '
-    <tr class="cycle offer">
+    <tr class="cycle offer ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."$sourceName <i>Cycle: $cycleNumber</i></td>";
@@ -168,7 +168,7 @@ foreach ((array)$message as $messagepayload) {
             $currencySymbolbypub       = $iteratorvariable->currencySymbol;
             $cyclesarraybypub          = $iteratorvariable->cycles; // array of cycles by publisher/affiliate
             echo '
-    <tr class="source heading">
+    <tr class="source heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."$sourceName::<b>$affId</b></td>
@@ -236,7 +236,7 @@ foreach ((array)$message as $messagepayload) {
                 $InitialRecycle_successRatebypub       = $cyclesarraybypub[$w]->recycleInitial->successRate;
                 $InitialRecycle_plusRetentionRatebypub = $cyclesarraybypub[$w]->recycleInitial->plusRetentionRate;
                 echo '
-    <tr class="cycle source">
+    <tr class="cycle source ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."$sourceName::<b>$affId</b> <i>Cycle: $cycleNumberbypub</i></td>
@@ -284,7 +284,7 @@ foreach ((array)$message as $messagepayload) {
                 $currencybysub       = $iv2->currencySymbol;
                 $cyclesarraybysub    = $iv2->cycles;
                 echo '
-    <tr class="subaff heading">
+    <tr class="subaff heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."$sourceName::$affId::<b><em>$subAffId</em></b></td>
@@ -352,7 +352,7 @@ foreach ((array)$message as $messagepayload) {
                     $InitialRecycle_successRatebysub       = $cyclesarraybysub[$q]->recycleInitial->successRate;
                     $InitialRecycle_plusRetentionRatebysub = $cyclesarraybysub[$q]->recycleInitial->plusRetentionRate;
                     echo '
-    <tr class="cycle subaff">
+    <tr class="cycle subaff ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
         <td colspan="3">'."<i>$sourceName::$affId::<b><em>$subAffId</em></b> Cycle: $cycleNumberbysub<i></td>
@@ -394,4 +394,8 @@ foreach ((array)$message as $messagepayload) {
     }
 }
 $statsarray = array("$currentstepvalue" => "Product Id $productId", "Orders" => "$orders", "Gross" => "$currencySymbol$grossTotal", "Net" => "$currencySymbol$netTotal", "Expenses" => "$currencySymbol$expensesTotal", "Last Cycle Retention" => "$retention", "Last Cycle Retention Total" => "$retTotal");
+foreach ($statsarray as $akey => $avalue) {
+    echo '<div class="module col-1-7">'."$akey: $avalue</div>";
+}
+echo '</div>';
 ?>
