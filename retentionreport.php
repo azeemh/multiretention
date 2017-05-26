@@ -1,30 +1,9 @@
 <?php
-// TAB size: 4
-// Syntax to pass arguments from CLI (command line): php /path/to/wwwpublic/path/to/script.php arg1 arg2 arg 3
-// Syntax to pass arguments from http: http://yourdomain.com/path/to/script.php?argument1=arg1&argument2=arg2&argument3=arg3
-
-/* used to pass arguments via commandline or http but not with include.
-if (PHP_SAPI === 'cli') {
-    $argument1 = $argv[1];
-    $argument2 = $argv[2];
-    $argument3 = $argv[3];
-    $argument4 = $argv[4];
-    $argument5 = $argv[5];
-} else {
-    $argument1 = $_GET['argument1'];
-    $argument2 = $_GET['argument2'];
-    $argument3 = $_GET['argument3'];
-    $argument4 = $_GET['argument4'];
-    $argument5 = $_GET['argument5'];
-}
-*/
-
 $startDate = $argument1; // must be in mm/dd/yyyy format
 $endDate   = $argument2; // must be in mm/dd/yyyy format
 $productId = $argument3;
 $loginId   = $argument4;
 $password  = $argument5;
-
 $opts            = array(
     'http' => array(
         'header' => "User-Agent:MyAgent/1.0\r\n"
@@ -37,8 +16,6 @@ $serverresponse  = json_decode($json);
 $message         = $serverresponse->message;
 $mssgarraylength = count($serverresponse);
 $sourcecount     = ($mssgarraylength - 1);
-//echo "$sourcecount\n";
-
 foreach ((array)$message as $messagepayload) {
     $sourceId             = $messagepayload->sourceId;
     $sourceName           = $messagepayload->sourceName;
@@ -50,19 +27,19 @@ foreach ((array)$message as $messagepayload) {
     $lifeTimeValuePerCust = $messagepayload->lifeTimeValuePerCust;
     $currencySymbol       = $messagepayload->currencySymbol;
     $cyclesarray          = $messagepayload->cycles; // this is an array of cycles
-    
-
-
     if ($sourceName == 'Total') {
         echo '
     <tr class="total heading">
-            <td colspan="3">'."<b>TOTALS FOR<br/>$OfferName:$loginId"."<br/>Product ID:$productId</b>";
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
+        <td colspan="3">'."<b>TOTALS FOR<br/>$OfferName:$loginId"."<br/>Product ID:$productId</b>";
     } else {
     echo '
     <tr class="offer heading">
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
         <td colspan="3">'."<b>$sourceName</b></td>";
     }
-
     echo "
         <td> -- </td>
         <td> -- </td>
@@ -95,8 +72,6 @@ foreach ((array)$message as $messagepayload) {
         <td> -- </td>
         <td> -- </td>
     </tr>";
-
-    //echo "<br/>\n<h3>$sourceName || Orders: $orders | Gross: $currencySymbol$grossTotal | Net: $currencySymbol$netTotal | Expenses: $currencySymbol$expensesTotal | LTV: $currencySymbol$lifeTimeValue | LTV/Customer: $currencySymbol$lifeTimeValuePerCust | Number of Billing Cycles: " . count($cyclesarray) . "</h3>";
     for ($z = 0; $z <= (count($cyclesarray) - 1); $z++) {
         $cycleNumber                      = $cyclesarray[$z]->cycleNumber;
         $approved                         = $cyclesarray[$z]->approved;
@@ -135,11 +110,15 @@ foreach ((array)$message as $messagepayload) {
         if ($sourceName == 'Total') {
         echo '
     <tr class="cycle total">
-        <td colspan="3">'."<i>Cycle: $cycleNumber</i></td>";
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
+        <td colspan="3">'."$sourceName <i>Cycle: $cycleNumber</i></td>";
     } else {
         echo '
     <tr class="cycle offer">
-        <td colspan="3">'."<i>Cycle: $cycleNumber</i></td>";
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
+        <td colspan="3">'."$sourceName <i>Cycle: $cycleNumber</i></td>";
     }
 
         echo "
@@ -174,12 +153,7 @@ foreach ((array)$message as $messagepayload) {
         <td>$softDecline</td>
         <td>$recycleSave</td>
     </tr>";
-        //echo "<br/>Cycle $cycleNumber\nApproved: $approved | Declines: $declines | Approval Rate: $approvalRate | CPA: $cpa | Full Refunds: $currencySymbol$fullRefunds | Partial Refunds: $currencySymbol$partialRefunds | Cancels: $cancels | Chargebacks: $chargebacks | Chargeback Rate: $chargebackRate | Chargeback Rev: $chargebackRev | Recycles: $recycles | Pending: $pending | Retention: $retention | Retention Total: $retTotal | Gross: $gross | Expenses: $expenses | Comission: $comission | Net: $net\nTransaction Fee: $transactionFee | Discount Rate Fee: $discountRateFee | Shipping Costs: $shippingCosts | Product Costs: $productCosts | Hard Decline: $hardDecline | Soft Decline: $softDecline | Recycle Save: $recycleSave | Initial Recyle -- Successes: $InitialRecycle_successes | Soft Declines: $InitialRecycle_softDeclines | Hard Declines: $InitialRecycle_hardDeclines | Success Rate: $InitialRecycle_successRate | Plus Retention Rate: $InitialRecycle_plusRetentionRate\n";
     }
-    //echo "\n";
-
-    //var_dump($messagepayload);
-    
     #check if the source has a breakdown by affs (and logically subaffs cuz we asked konnective for them in the report query include=BySubAff). 
     if (array_key_exists('byPublisher', $messagepayload)) {
         $breakdownbypub = $messagepayload->byPublisher;
@@ -193,9 +167,10 @@ foreach ((array)$message as $messagepayload) {
             $lifeTimeValuePerCustbypub = $iteratorvariable->lifeTimeValuePerCust;
             $currencySymbolbypub       = $iteratorvariable->currencySymbol;
             $cyclesarraybypub          = $iteratorvariable->cycles; // array of cycles by publisher/affiliate
-            
             echo '
     <tr class="source heading">
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
         <td colspan="3">'."$sourceName::<b>$affId</b></td>
         <td>$affId</td>
         <td> -- </td>
@@ -228,8 +203,6 @@ foreach ((array)$message as $messagepayload) {
         <td> -- </td>
         <td> -- </td>
     </tr>";
-            //echo "<br/><h5>AFFILIATE: $affId</h5>OVERALL--Orders: $ordersbypub | Gross: $currencySymbolbypub$grossTotalbypub | Net: $currencySymbolbypub$netTotalbypub | Expenses: $currencySymbolbypub$expensesTotalbypub | LTV: $currencySymbolbypub$lifeTimeValuebypub | LTV/Customer: $lifeTimeValuePerCustbypub | Number of Billing Cycles: " . count($cyclesarraybypub) . "\n";
-            
             for ($w = 0; $w <= (count($cyclesarraybypub) - 1); $w++) {
                 $cycleNumberbypub                      = $cyclesarraybypub[$w]->cycleNumber;
                 $approvedbypub                         = $cyclesarraybypub[$w]->approved;
@@ -262,10 +235,11 @@ foreach ((array)$message as $messagepayload) {
                 $InitialRecycle_hardDeclinesbypub      = $cyclesarraybypub[$w]->recycleInitial->hardDeclines;
                 $InitialRecycle_successRatebypub       = $cyclesarraybypub[$w]->recycleInitial->successRate;
                 $InitialRecycle_plusRetentionRatebypub = $cyclesarraybypub[$w]->recycleInitial->plusRetentionRate;
-                
                 echo '
     <tr class="cycle source">
-        <td colspan="3">'."<i>Cycle: $cycleNumberbypub</i></td>
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
+        <td colspan="3">'."$sourceName::<b>$affId</b> <i>Cycle: $cycleNumberbypub</i></td>
         <td>$affId</td>
         <td> -- </td>
         <td> -- </td>
@@ -297,10 +271,7 @@ foreach ((array)$message as $messagepayload) {
         <td>$softDeclinebypub</td>
         <td>$recycleSavebypub</td>
     </tr>";
-
-                //echo "Cycle $cycleNumberbypub \nApproved: $approvedbypub | Declines: $declinesbypub | Approval Rate: $approvalRatebypub | CPA: $cpabypub | Full Refunds: $currencySymbol$fullRefundsbypub | Partial Refunds: $currencySymbol$partialRefundsbypub | Cancels: $cancelsbypub | Chargebacks: $chargebacksbypub | Chargeback Rate: $chargebackRatebypub | Chargeback Rev: $chargebackRevbypub | Recycles: $recyclesbypub | Pending: $pendingbypub | Retention: $retentionbypub | Retention Total: $retTotalbypub | Gross: $grossbypub | Expenses: $expensesbypub | Comission: $comissionbypub | Net: $netbypub\nTransaction Fee: $transactionFeebypub | Discount Rate Fee: $discountRateFeebypub | Shipping Costs: $shippingCostsbypub | Product Costs: $productCostsbypub | Hard Decline: $hardDeclinebypub | Soft Decline: $softDeclinebypub | Recycle Save: $recycleSavebypub | Initial Recyle -- Successes: $InitialRecycle_successesbypub | Soft Declines: $InitialRecycle_softDeclinesbypub | Hard Declines: $InitialRecycle_hardDeclinesbypub | Success Rate: $InitialRecycle_successRatebypub | Plus Retention Rate: $InitialRecycle_plusRetentionRatebypub\n";
             }
-            
             $breakdownbysub = $iteratorvariable->bySubAff;
             foreach ($breakdownbysub as $iv2) {
                 $subAffId            = $iv2->subAffId;
@@ -312,9 +283,10 @@ foreach ((array)$message as $messagepayload) {
                 $ltvpercustomerbysub = $iv2->lifeTimeValuePerCust;
                 $currencybysub       = $iv2->currencySymbol;
                 $cyclesarraybysub    = $iv2->cycles;
-                
                 echo '
     <tr class="subaff heading">
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
         <td colspan="3">'."$sourceName::$affId::<b><em>$subAffId</em></b></td>
         <td>$affId</td>
         <td>$subAffId</td>
@@ -347,9 +319,6 @@ foreach ((array)$message as $messagepayload) {
         <td> -- </td>
         <td> -- </td>
     </tr>";
-
-                //echo "\n%%%%%%%%%%%%%| Sub Aff ID: $subAffId |\nOrders: $ordersbysub | Gross: $currencybysub$grossbysub | Net: $currencybysub$netbysub | Expenses: $currencybysub$expensesbysub | LTV: $currencybysub$ltvbysub | LTV/Customer: $currencybysub$ltvpercustomerbysub | Number of Billing Cycles: " . count($cyclesarraybysub) . "\n";
-                
                 for ($q = 0; $q <= (count($cyclesarraybysub) - 1); $q++) {
                     $cycleNumberbysub                      = $cyclesarraybysub[$q]->cycleNumber;
                     $approvedbysub                         = $cyclesarraybysub[$q]->approved;
@@ -382,10 +351,11 @@ foreach ((array)$message as $messagepayload) {
                     $InitialRecycle_hardDeclinesbysub      = $cyclesarraybysub[$q]->recycleInitial->hardDeclines;
                     $InitialRecycle_successRatebysub       = $cyclesarraybysub[$q]->recycleInitial->successRate;
                     $InitialRecycle_plusRetentionRatebysub = $cyclesarraybysub[$q]->recycleInitial->plusRetentionRate;
-                    
                     echo '
     <tr class="cycle subaff">
-        <td colspan="3">'."<i>Cycle: $cycleNumberbysub<i></td>
+        '."<td>$OfferName</td>
+        <td>$currentstepvalue</td>".'
+        <td colspan="3">'."<i>$sourceName::$affId::<b><em>$subAffId</em></b> Cycle: $cycleNumberbysub<i></td>
         <td>$affId</td>
         <td>$subAffId</td>
         <td> -- </td>
@@ -417,30 +387,11 @@ foreach ((array)$message as $messagepayload) {
         <td>$softDeclinebysub</td>
         <td>$recycleSavebysub</td>
     </tr>";
-
-                    //echo "Cycle $cycleNumberbysub \nApproved: $approvedbysub | Declines: $declinesbysub | Approval Rate: $approvalRatebysub | CPA: $cpabysub | Full Refunds: $currencySymbol$fullRefundsbysub | Partial Refunds: $currencySymbol$partialRefundsbysub | Cancels: $cancelsbysub | Chargebacks: $chargebacksbysub | Chargeback Rate: $chargebackRatebysub | Chargeback Rev: $chargebackRevbysub | Recycles: $recyclesbysub | Pending: $pendingbysub | Retention: $retentionbysub | Retention Total: $retTotalbysub | Gross: $grossbysub | Expenses: $expensesbysub | Comission: $comissionbysub | Net: $netbysub\nTransaction Fee: $transactionFeebysub | Discount Rate Fee: $discountRateFeebysub | Shipping Costs: $shippingCostsbysub | Product Costs: $productCostsbysub | Hard Decline: $hardDeclinebysub | Soft Decline: $softDeclinebysub | Recycle Save: $recycleSavebysub | Initial Recyle -- Successes: $InitialRecycle_successesbysub | Soft Declines: $InitialRecycle_softDeclinesbysub | Hard Declines: $InitialRecycle_hardDeclinesbysub | Success Rate: $InitialRecycle_successRatebysub | Plus Retention Rate: $InitialRecycle_plusRetentionRatebysub\n";
                 }
             }
         }
-        echo "\n</tbody>";
-        
     } else {
-        //echo "POST to RAILS server for fields without subaff breakdown\n\n";
     }
 }
-
 $statsarray = array("$currentstepvalue" => "Product Id $productId", "Orders" => "$orders", "Gross" => "$currencySymbol$grossTotal", "Net" => "$currencySymbol$netTotal", "Expenses" => "$currencySymbol$expensesTotal", "Last Cycle Retention" => "$retention", "Last Cycle Retention Total" => "$retTotal");
-
-/*
-foreach($statsarray as $key => $value) {
-    echo '
-        <div class="col-1-7">
-            <div class="module">
-                <p>'."$key: $value".'<p>
-            </div>
-        </div>';}
-echo '</div>';
-echo "<br/>\n";
-*/
-
 ?>
