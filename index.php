@@ -193,7 +193,7 @@
 <input type="text" id="to" name="to">
 <h3>How to Use:</h3>
 <p>Returns a Retention Report across multiple API users given a product Id.<br/>
-Enter a username, password, and product id for each offer you want to track and you will see a breakdown per publishing  affiliate, per sub-affiliate id. Each Product will have it's own Total Row. <!--Furthermore it's built with future extensibility in mind, allowing for HTML table functions by viewing the source, allowing calculations per set of offers etc on a dynamically created table, - or more simply by summing all the values in a column etc. CSV and Excel export to come.--></p> 
+Enter a username, password, and product id for each offer you want to track and you will see a breakdown per publishing  affiliate, per sub-affiliate id. Each Product will have it's own Total Row. To only check Step 1 values, put "none" in Step 2 text input. (without quotes)<!--Furthermore it's built with future extensibility in mind, allowing for HTML table functions by viewing the source, allowing calculations per set of offers etc on a dynamically created table, - or more simply by summing all the values in a column etc. CSV and Excel export to come.--></p> 
 <div class="field_wrapper">
     <div>
         <label>Offer Name</label><input type="text" name="field_name[1][]" value=""/><label>API User Name</label><input type="text" name="field_name[1][]" value=""/><label>API Password</label><input type="text" name="field_name[1][]" value=""/><label>Product ID for Step 1</label><input type="text" name="field_name[1][]" value=""/><label>Product ID for Step 2</label><input type="text" name="field_name[1][]" value=""/>
@@ -261,19 +261,31 @@ if ($_POST) {
                 $value[4]
             );
             echo '<div class="grid"><h3>'."$OfferName at a glance:<h3>";
-            foreach ($osteps as $val) {
-                $argument1 = $from;
-                $argument2 = $to;
-                $argument3 = $val;
-                $argument4 = $offerlogin;
-                $argument5 = $offerpw;
-                if ($val == $offerstep1){
-                    $currentstepvalue = "Step 1";
-                } else {
-                    $currentstepvalue = "Step 2";
-                }
-                require('retentionreport.php');
+            if ($offerstep2 == 'none') {
+              $argument1 = $from;
+              $argument2 = $to;
+              $argument3 = $val;
+              $argument4 = $offerlogin;
+              $argument5 = $offerpw;
+              $currentstepvalue = "Step 1";
+              require('retentionreport.php');
             }
+            else {
+              foreach ($osteps as $val) {
+                  $argument1 = $from;
+                  $argument2 = $to;
+                  $argument3 = $val;
+                  $argument4 = $offerlogin;
+                  $argument5 = $offerpw;
+                  if ($val == $offerstep1){
+                      $currentstepvalue = "Step 1";
+                  } else {
+                      $currentstepvalue = "Step 2";
+                  }
+                  require('retentionreport.php');
+              }
+            }
+
         }
     }
 }
