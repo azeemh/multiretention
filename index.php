@@ -3,9 +3,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Retention Report AZ</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+  <!-- Jquery for Form UI -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <!-- START DATATABLE SORTING SCRIPT -->
+  <script src="/node_modules/tablefilter/dist/tablefilter/tablefilter.js"></script>
+
+  <!-- DATEPICKER SCRIPT -->
   <script>
   $( function() {
     var dateFormat = "mm/dd/yy",
@@ -37,6 +44,8 @@
     }
   } );
   </script>
+
+  <!-- ADD ANOTHER INPUT SCRIPT -->
   <script type="text/javascript">
   $(document).ready(function(){
       var maxField = 100; //Input fields increment limitation
@@ -60,11 +69,16 @@
       });
   });
   </script>
+
   <style type="text/css">
   html {
     font-family: helvetica;
     background-color: white;
     font-size: 12px;
+  }
+  .padded {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   .ihover:hover {
     background-color: #EFF0F0;
@@ -84,40 +98,6 @@
   td, th {
     text-align: center;
     font-size: 11px;
-  }
-
-  .fixed_headers {
-    width: @table_width;
-    table-layout: fixed;
-    border-collapse: collapse;
-    
-    th { text-decoration: underline; }
-    th, td {
-      padding: 5px;
-      text-align: left;
-    }
-    
-    td:nth-child(1), th:nth-child(1) { min-width: @column_one_width; }
-    td:nth-child(2), th:nth-child(2) { min-width: @column_two_width; }
-    td:nth-child(3), th:nth-child(3) { width: @column_three_width; }
-
-    thead {
-      background-color: @header_background_color;
-      color: @header_text_color;
-      tr {
-        display: block;
-        position: relative;
-      }
-    }
-    tbody {
-      display: block;
-      overflow: auto;
-      width: 100%;
-      height: @table_body_height;
-      tr:nth-child(even) {
-        background-color: @alternate_row_background_color;
-      }
-    }
   }
 
   .stepvalue {
@@ -184,6 +164,119 @@
 </head>
 <body>
 <h1>Multi API User Konnective Retention Report</h1>
+
+<!-- HOW TO USE -->
+<div id="collapse">
+  <h3>How to Use:</h3>
+  <div>
+    <p>Returns a Retention Report across multiple API users given a product Id.<br/>
+    Enter a username, password, and product id for each offer you want to track and you will see a breakdown per publishing  affiliate, per sub-affiliate id. Each Product will have it's own Total Row. To only check Step 1 values, put "none" in Step 2 text input. (without quotes)<!--Furthermore it's built with future extensibility in mind, allowing for HTML table functions by viewing the source, allowing calculations per set of offers etc on a dynamically created table, - or more simply by summing all the values in a column etc. CSV and Excel export to come.--></p>
+    <p>To perform advanced searches from text-box filters, you can use the following advanced operators: </p>
+
+    <table>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td><code>&lt;</code></td>
+            <td>Match values lower than search term</td>
+            <td>number</td>
+            <td>&lt;1412</td>
+        </tr>
+        <tr>
+            <td><code>&lt;=</code></td>
+            <td>Match values lower than or equal to search term</td>
+            <td>number</td>
+            <td>&lt;=1412</td>
+        </tr>
+        <tr>
+            <td><code>&gt;</code></td>
+            <td>Match values greater than search term</td>
+            <td>number</td>
+            <td>&gt;1412</td>
+        </tr>
+        <tr>
+            <td><code>&gt;=</code></td>
+            <td>Match values greater than or equal to search term</td>
+            <td>number</td>
+            <td>&gt;=1412</td>
+        </tr>
+        <tr>
+            <td><code>=</code></td>
+            <td>Exact match: match only the whole search term(s)</td>
+            <td>string / number</td>
+            <td>=Sydney</td>
+        </tr>
+        <tr>
+            <td><code>*</code></td>
+            <td>Match search term(s) contained in data (default operator)</td>
+            <td>string / number</td>
+            <td>*Syd</td>
+        </tr>
+        <tr>
+            <td><code>!</code></td>
+            <td>Match data different from search term(s)</td>
+            <td>string / number</td>
+            <td>!Sydney</td>
+        </tr>
+        <tr>
+            <td><code>{</code></td>
+            <td>Match data starting with search term</td>
+            <td>string / number</td>
+            <td>{S</td>
+        </tr>
+        <tr>
+            <td><code>}</code></td>
+            <td>Match data ending with search term</td>
+            <td>string / number</td>
+            <td>}y</td>
+        </tr>
+        <tr>
+            <td><code>||</code></td>
+            <td>Match data containing at least one of the search term(s)</td>
+            <td>string / number</td>
+            <td>Sydney || Adelaide</td>
+        </tr>
+        <tr>
+            <td><code>&amp;&amp;</code></td>
+            <td>Match data containing all search terms</td>
+            <td>string / number</td>
+            <td>&gt;4.3 &amp;&amp; &lt;25.3</td>
+        </tr>
+        <tr>
+            <td><code>[empty]</code></td>
+            <td>Match empty data</td>
+            <td></td>
+            <td>[empty]</td>
+        </tr>
+        <tr>
+            <td><code>[nonempty]</code></td>
+            <td>Match data which is not empty</td>
+            <td></td>
+            <td>[nonempty]</td>
+        </tr>
+        <tr>
+            <td><code>rgx:</code></td>
+            <td>Use a regular expression to match data</td>
+            <td></td>
+            <td>rgx:de$</td>
+        </tr>
+    </table> 
+  </div>
+</div>
+
+<!-- COLLAPSIBLE ITEM SCRIPT -->
+<script>
+  $( "#collapse" ).accordion({
+      collapsible: true,
+      active: false
+  });
+</script>
+
+<!--INPUT FORM -->
 <section>
 <form action="" method="post">
 <h4>Date Range</h4>
@@ -191,10 +284,9 @@
 <input type="text" id="from" name="from">
 <label for="to">to</label>
 <input type="text" id="to" name="to">
-<h3>How to Use:</h3>
-<p>Returns a Retention Report across multiple API users given a product Id.<br/>
-Enter a username, password, and product id for each offer you want to track and you will see a breakdown per publishing  affiliate, per sub-affiliate id. Each Product will have it's own Total Row. To only check Step 1 values, put "none" in Step 2 text input. (without quotes)<!--Furthermore it's built with future extensibility in mind, allowing for HTML table functions by viewing the source, allowing calculations per set of offers etc on a dynamically created table, - or more simply by summing all the values in a column etc. CSV and Excel export to come.--></p> 
-<div class="field_wrapper">
+
+<div class="field_wrapper padded">
+<h4>Offers</h4>
     <div>
         <label>Offer Name</label><input type="text" name="field_name[1][]" value=""/><label>API User Name</label><input type="text" name="field_name[1][]" value=""/><label>API Password</label><input type="text" name="field_name[1][]" value=""/><label>Product ID for Step 1</label><input type="text" name="field_name[1][]" value=""/><label>Product ID for Step 2</label><input type="text" name="field_name[1][]" value=""/>
         <a href="javascript:void(0);" class="add_button" title="Add field">+</a>
@@ -208,12 +300,12 @@ Enter a username, password, and product id for each offer you want to track and 
 $from = $_POST['from'];
 $to = $_POST['to'];
 echo '
-<table class="sortable">
-<thead class="fixed_headers">
+<table class="my-table">
+<thead>
     <tr>
         <th><h5>Offer</h5></th>
         <th><h5>Step:Value</h5></th>
-        <th colspan="3"><h5>Source</h5></th>
+        <th><h5>Source</h5></th>
         <th><h5>Affiliate</h5></th>
         <th><h5>Sub-Affiliate</h5></th>
         <th><h5>Orders:</h5></th>
@@ -291,7 +383,23 @@ if ($_POST) {
 }
 echo '</tbody></table>' . "\n";
 ?>
- <script src="sorttable.js"></script>
+<script>
+var tf = new TableFilter(document.querySelector('.my-table'), {
+    base_path: '/node_modules/tablefilter/dist/tablefilter/',
+    col_0: 'select',
+    col_1: 'select',
+    col_3: 'select',
+    col_4: 'select',
+    extensions: [{
+              name: 'colsVisibility',
+              at_start: [6,7,8,9,10,14,20,24,25,26,27,28,29],
+              text: 'Hidden Columns: ',
+          }, {
+              name: 'sort'
+        }]
+});
+tf.init();
+</script>
 </section>
 </body>
 </html>

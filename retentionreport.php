@@ -32,13 +32,13 @@ foreach ((array)$message as $messagepayload) {
     <tr class="total heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."<b>TOTALS FOR<br/>$OfferName:$loginId"."<br/>Product ID:$productId</b>";
+        <td >'."<b>TOTALS FOR<br/>$OfferName:$loginId"."<br/>Product ID:$productId</b>";
     } else {
     echo '
     <tr class="offer heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."<b>$sourceName</b></td>";
+        <td>'."<b>$sourceName</b></td>";
     }
     echo "
         <td> -- </td>
@@ -112,13 +112,13 @@ foreach ((array)$message as $messagepayload) {
     <tr class="cycle total ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."$sourceName <i>Cycle: $cycleNumber</i></td>";
+        <td>'."$sourceName <i>Cycle: $cycleNumber</i></td>";
     } else {
         echo '
     <tr class="cycle offer ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."$sourceName <i>Cycle: $cycleNumber</i></td>";
+        <td>'."$sourceName <i>Cycle: $cycleNumber</i></td>";
     }
 
         echo "
@@ -171,7 +171,7 @@ foreach ((array)$message as $messagepayload) {
     <tr class="source heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."$sourceName::<b>$affId</b></td>
+        <td>'."$sourceName::<b>$affId</b></td>
         <td>$affId</td>
         <td> -- </td>
         <td>$ordersbypub</td>
@@ -239,7 +239,7 @@ foreach ((array)$message as $messagepayload) {
     <tr class="cycle source ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."$sourceName::<b>$affId</b> <i>Cycle: $cycleNumberbypub</i></td>
+        <td>'."$sourceName::<b>$affId</b> <i>Cycle: $cycleNumberbypub</i></td>
         <td>$affId</td>
         <td> -- </td>
         <td> -- </td>
@@ -287,7 +287,7 @@ foreach ((array)$message as $messagepayload) {
     <tr class="subaff heading ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."$sourceName::$affId::<b><em>$subAffId</em></b></td>
+        <td>'."$sourceName::$affId::<b><em>$subAffId</em></b></td>
         <td>$affId</td>
         <td>$subAffId</td>
         <td>$ordersbysub</td>
@@ -355,7 +355,7 @@ foreach ((array)$message as $messagepayload) {
     <tr class="cycle subaff ihover">
         '."<td>$OfferName</td>
         <td>$currentstepvalue</td>".'
-        <td colspan="3">'."<i>$sourceName::$affId::<b><em>$subAffId</em></b> Cycle: $cycleNumberbysub<i></td>
+        <td>'."<i>$sourceName::$affId::<b><em>$subAffId</em></b> Cycle: $cycleNumberbysub<i></td>
         <td>$affId</td>
         <td>$subAffId</td>
         <td> -- </td>
