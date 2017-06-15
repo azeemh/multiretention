@@ -48,24 +48,24 @@
   <!-- ADD ANOTHER INPUT SCRIPT -->
   <script type="text/javascript">
   $(document).ready(function(){
-      var maxField = 100; //Input fields increment limitation
-      var addButton = $('.add_button'); //Add button selector
-      var wrapper = $('.field_wrapper'); //Input field wrapper
+      var maxField = 100;
+      var addButton = $('.add_button');
+      var wrapper = $('.field_wrapper');
       var fieldHTML =  {row :function(f){
-              return '<div><label>Offer Name</label><input type="text" name="field_name['+f+'][]" value=""/><label>API User Name</label><input type="text" name="field_name['+f+'][]" value=""/><label>API Password</label><input type="text" name="field_name['+f+'][]" value=""/><label>Product ID for Step 1</label><input type="text" name="field_name['+f+'][]" value=""/><label>Product ID for Step 2</label><input type="text" name="field_name['+f+'][]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field">Remove Field</a></div>'; //New input field html 
+              return '<div><label>Offer Name</label><input type="text" name="field_name['+f+'][]" value=""/><label>API User Name</label><input type="text" name="field_name['+f+'][]" value=""/><label>API Password</label><input type="text" name="field_name['+f+'][]" value=""/><label>Product ID for Step 1</label><input type="text" name="field_name['+f+'][]" value=""/><label>Product ID for Step 2</label><input type="text" name="field_name['+f+'][]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field">Remove Field</a></div>';
           }};
 
-      var x = 1; //Initial field counter is 1
-      $(addButton).click(function(){ //Once add button is clicked
-          if(x < maxField){ //Check maximum number of input fields
-              x++; //Increment field counter
-              $(wrapper).append(fieldHTML.row(x)); // Add field html
+      var x = 1;
+      $(addButton).click(function(){
+          if(x < maxField){
+              x++;
+              $(wrapper).append(fieldHTML.row(x));
           }
       });
-      $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
+      $(wrapper).on('click', '.remove_button', function(e){
           e.preventDefault();
-          $(this).parent('div').remove(); //Remove field html
-          x--; //Decrement field counter
+          $(this).parent('div').remove();
+          x--;
       });
   });
   </script>
