@@ -99,6 +99,19 @@
     text-align: center;
     font-size: 11px;
   }
+  input {
+    border-radius: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 1px;
+  }
+  label {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 1px;
+  }
 
   .stepvalue {
     font-size: 14px;
@@ -138,7 +151,7 @@
     width: 25%;
   }
   .col-1-7 {
-    width: 14.2%;
+    width: 14.277%;
   }
   .module {
     padding: 10px;
@@ -163,7 +176,7 @@
   </style>
 </head>
 <body>
-<h1>Multi API User Konnective Retention Report</h1>
+<h2>Multi API User Konnective Retention Report</h2>
 
 <!-- HOW TO USE -->
 <div id="collapse">
@@ -282,7 +295,7 @@
 <h4>Date Range</h4>
 <label for="from">From</label>
 <input type="text" id="from" name="from">
-<label for="to">to</label>
+<label for="to">To</label>
 <input type="text" id="to" name="to">
 
 <div class="field_wrapper padded">
